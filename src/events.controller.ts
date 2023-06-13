@@ -10,52 +10,53 @@ import {
 } from '@nestjs/common';
 import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDTO } from './update-event.dto';
+import { Event } from './event.entity';
 
 @Controller('/events')
 export class EventsController {
+  // store events in memory, declared a field, would be an array of events
+  private events: Event[] = [];
+
   @Get()
   findAll() {
-    return [
-      {
-        id: 1,
-        name: 'First Name',
-      },
-      {
-        id: 2,
-        name: 'Last Name',
-      },
-      {
-        id: 3,
-        name: 'Full Name',
-      },
-    ];
+    return this.events;
   }
 
   @Get(':id')
   findOne(@Param('id') id) {
-    return {
-      id: id,
-      name: 'First Name',
-    };
+    const event = this.events.find((event) => event.id === parseInt(id));
+
+    return event;
   }
 
   @Post()
   create(@Body() input: CreateEventDto) {
-    return input;
+    const event = {
+      ...input,
+      when: new Date(input.when),
+      id: this.events.length + 1,
+    };
+
+    this.events.push(event);
+    return event;
   }
 
   @Patch(':id')
   update(@Param('id') id, @Body() input: UpdateEventDTO) {
-    input.name = 'Harry';
-    return {
-      id: id,
-      value: input,
+    const index = this.events.findIndex((event) => event.id === parseInt(id));
+
+    this.events[index] = {
+      ...this.events[index],
+      ...input,
+      when: input.when ? new Date(input.when) : this.events[index].when,
     };
+
+    return this.events[index];
   }
 
   @Delete(':id')
   @HttpCode(204)
   remove(@Param() id) {
-    return id;
+    this.events = this.events.filter((event) => event.id !== parseInt(id));
   }
 }
