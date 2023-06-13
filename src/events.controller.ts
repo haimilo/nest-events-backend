@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   Body,
+  HttpCode
 } from '@nestjs/common';
 
 @Controller('/events')
@@ -29,7 +30,7 @@ export class EventsController {
   }
 
   @Get(':id')
-  findOne(@Param() id) {
+  findOne(@Param('id') id) {
     return {
       id: id,
       name: 'First Name',
@@ -40,11 +41,17 @@ export class EventsController {
   create(@Body() input) {
     return input;
   }
+  
   @Patch(':id')
-  update(@Param() id, @Body() input) {
-    return id;
+  update(@Param('id') id, @Body() input) {
+    return {
+      id: id,
+      value: input,
+    };
   }
+
   @Delete(':id')
+  @HttpCode(204)
   remove(@Param() id) {
     return id;
   }
