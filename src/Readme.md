@@ -12,3 +12,8 @@
   Repository: Providers data access for a specific Entity
 
   Query Builder: Allows building SQL queries in an object-oriented way.
+
+26. Connecting to database
+
+  Install Libaries:
+    npm install --save @nestjs/typeorm typeorm mysql
