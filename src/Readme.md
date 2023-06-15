@@ -20,3 +20,10 @@
 
 28. The Entity (Primary Key and Column)
 
+29. Repository Partten & Repository classes
+
+  There are some methods:
+     * save(): Create new or update an existing Entity
+     * find(): Find many entities, optionally using criteria
+     * findOne(): Find one entity - by ID, optionally using criteria
+     * remove(): Remove an existing entity
