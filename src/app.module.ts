@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventsController } from './events.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Event } from './event.entity';
 
 @Module({
   // in the import module you need to import TypeOrmModule and forRoot method
@@ -14,6 +15,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'example',
       database: 'nest-events',
+      entities: [Event],
+      // automatically updates their database schema
+      synchronize: true,
     }),
   ],
   controllers: [AppController, EventsController],

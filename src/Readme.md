@@ -17,3 +17,6 @@
 
   Install Libaries:
     npm install --save @nestjs/typeorm typeorm mysql
+
+28. The Entity (Primary Key and Column)
+
