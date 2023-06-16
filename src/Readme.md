@@ -27,3 +27,43 @@
      * find(): Find many entities, optionally using criteria
      * findOne(): Find one entity - by ID, optionally using criteria
      * remove(): Remove an existing entity
+
+30. TypeORM 3 Upgrade guide
+  Method:
+    * findOne(id) signature was dropped. use following syntax instead:
+    This method use to fetch one entity from the database
+    example:
+      const user = await userRepository.findOneBy({
+        id: id // where id is your column name
+      })
+
+    * There are some methods have changed:
+      - findOne
+      - findOneOrFail
+      - find
+      - count
+      - findAndCount
+    That all method above only accept FindOptions as parameter
+    
+      const users = await userRepository.find({
+        where: { /* conditions */ },
+        relations: { /* relations */ }
+      })
+
+    * To supply where conditions directly without FindOptions new methods were added:
+      - findOneBy
+      - findOneByOrFail
+      - findBy
+      - countBy
+      - findAndCountBy
+
+        const users = await userRepository.findBy({
+          name: 'Harry'
+        })
+
+    * This change was required to simply current find* and count* methods typings, improve type safety and prevent user confusion.
+      - findByIds was removed, use findBy method instead in conjuction with In operator, for example
+
+        userRepository.findBy({
+          id: In([1, 2, 3])
+        })
