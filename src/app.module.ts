@@ -19,6 +19,8 @@ import { Event } from './event.entity';
       // automatically updates their database schema
       synchronize: true,
     }),
+    // TypeOrmModule.forFeature will automatically update its database schema
+    TypeOrmModule.forFeature([Event])
   ],
   controllers: [AppController, EventsController],
   providers: [AppService],
