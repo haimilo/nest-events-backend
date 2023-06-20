@@ -11,7 +11,7 @@ import {
 import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDTO } from './update-event.dto';
 import { Event } from './event.entity';
-import { Repository } from 'typeorm';
+import { Like, MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Controller('/events')
@@ -26,6 +26,33 @@ export class EventsController {
   @Get()
   async findAll() {
     return await this.repository.find();
+  }
+
+  @Get('/practice')
+  async practice() {
+    return await this.repository.find({
+      // Use "select" to select which fields need to select from the entities
+      select: ["id", "when"],
+      // OR condition will be listed in an array after where syntax
+      where: [
+        {
+          // AND condition
+          id: MoreThan(3),
+          when: MoreThan(new Date('2021-02-12T13:00:00')),
+        },
+        {
+          // Like method is a method that check parameters have contain the same value with the record in the database
+          description: Like('%meet%'),
+        },
+      ],
+      //Limit the record by "take" key
+      take: 2,
+      // Use "skip" key to skip the record
+      // Use "order" key to sort the record
+      order: {
+        id: "DESC"
+      }
+    });
   }
 
   @Get(':id')

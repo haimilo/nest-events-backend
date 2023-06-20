@@ -16,7 +16,6 @@ import { Event } from './event.entity';
       password: 'example',
       database: 'nest-events',
       entities: [Event],
-      // automatically updates their database schema
       synchronize: true,
     }),
     // TypeOrmModule.forFeature will automatically update its database schema

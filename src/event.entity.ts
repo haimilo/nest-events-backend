@@ -25,7 +25,7 @@ export class Event {
   Composite key:
   Key that consists of 2 columns or more
   */
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
   // @PrimaryGeneratedColumn()
 
@@ -37,9 +37,7 @@ export class Event {
   @Column()
   description: string;
 
-  @Column({
-    name: 'when_date',
-  })
+  @Column()
   when: Date;
 
   @Column()
