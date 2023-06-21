@@ -76,7 +76,7 @@ export class EventsController {
   @Patch(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() input: UpdateEventDTO,
+    @Body(ValidationPipe) input: UpdateEventDTO,
   ) {
     // const index = this.events.findIndex((event) => event.id === parseInt(id));
     const event = await this.repository.findOne({
