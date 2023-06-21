@@ -16,7 +16,7 @@
 26. Connecting to database
 
   Install Libaries:
-    npm install --save @nestjs/typeorm typeorm mysql
+    >> npm install --save @nestjs/typeorm typeorm mysql
 
 28. The Entity (Primary Key and Column)
 
@@ -80,3 +80,11 @@
   * ParseArrayPipe
   * ParseUUIDPipe
   * DefaultValuePipe
+
+35. Input Validation
+
+  First of all need to install the class validator and class transformer libararies by running
+
+    >> npm i --save class-validator class-transformer
+
+  These packages are needed for the validation pip, another kind of built in pipe will use.

@@ -8,6 +8,7 @@ import {
   Body,
   HttpCode,
   ParseIntPipe,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDTO } from './update-event.dto';
@@ -33,7 +34,7 @@ export class EventsController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     console.log(typeof id);
     return await this.repository.findOne({
-      where: {id}
+      where: { id },
     });
   }
 
@@ -41,7 +42,7 @@ export class EventsController {
   async practice() {
     return await this.repository.find({
       // Use "select" to select which fields need to select from the entities
-      select: ["id", "when"],
+      select: ['id', 'when'],
       // OR condition will be listed in an array after where syntax
       where: [
         {
@@ -59,13 +60,13 @@ export class EventsController {
       // Use "skip" key to skip the record
       // Use "order" key to sort the record
       order: {
-        id: "DESC"
-      }
+        id: 'DESC',
+      },
     });
   }
 
   @Post()
-  async create(@Body() input: CreateEventDto) {
+  async create(@Body(ValidationPipe) input: CreateEventDto) {
     return await this.repository.save({
       ...input,
       when: new Date(input.when),
@@ -73,9 +74,16 @@ export class EventsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id, @Body() input: UpdateEventDTO) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() input: UpdateEventDTO,
+  ) {
     // const index = this.events.findIndex((event) => event.id === parseInt(id));
-    const event = await this.repository.findOne(id);
+    const event = await this.repository.findOne({
+      where: {
+        id,
+      },
+    });
 
     return await this.repository.save({
       ...event,
