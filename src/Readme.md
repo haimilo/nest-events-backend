@@ -67,3 +67,16 @@
         userRepository.findBy({
           id: In([1, 2, 3])
         })
+
+34. Introduction of Pipes
+  Define: Pipes is a proper programming concept in Nest
+
+  * Input =goes in=> (check by: Validation, Tranformation and orther custom check) =goes out=> Result
+
+  Nest comes with six pipes available out-of-the-box:
+  * ValidationPipe
+  * ParesIntPipe
+  * ParseBoolPipe
+  * ParseArrayPipe
+  * ParseUUIDPipe
+  * DefaultValuePipe
