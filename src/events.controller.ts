@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   HttpCode,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDTO } from './update-event.dto';
@@ -26,6 +27,14 @@ export class EventsController {
   @Get()
   async findAll() {
     return await this.repository.find();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    console.log(typeof id);
+    return await this.repository.findOne({
+      where: {id}
+    });
   }
 
   @Get('/practice')
@@ -53,13 +62,6 @@ export class EventsController {
         id: "DESC"
       }
     });
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id) {
-    const event = await this.repository.findOne(id);
-
-    return event;
   }
 
   @Post()
