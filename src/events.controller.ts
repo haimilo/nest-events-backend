@@ -9,6 +9,7 @@ import {
   HttpCode,
   ParseIntPipe,
   ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { CreateEventDto } from './create-event.dto';
 import { UpdateEventDTO } from './update-event.dto';
@@ -65,8 +66,12 @@ export class EventsController {
     });
   }
 
+  // @UsePipes()
   @Post()
-  async create(@Body() input: CreateEventDto) {
+  async create(
+    // @Body(new ValidationPipe({ groups: ['create'] })) input: CreateEventDto,
+    @Body() input: CreateEventDto,
+  ) {
     return await this.repository.save({
       ...input,
       when: new Date(input.when),
@@ -74,7 +79,11 @@ export class EventsController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body(ValidationPipe) input: UpdateEventDTO) {
+  async update(
+    @Param('id') id: number,
+    // @Body(new ValidationPipe({ groups: ['update'] })) input: UpdateEventDTO,
+    @Body() input: UpdateEventDTO,
+  ) {
     // const index = this.events.findIndex((event) => event.id === parseInt(id));
     const event = await this.repository.findOne({
       where: {

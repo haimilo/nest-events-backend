@@ -88,3 +88,8 @@
     >> npm i --save class-validator class-transformer
 
   These packages are needed for the validation pip, another kind of built in pipe will use.
+
+36. Validation Groups and Options
+
+  Another way to apply pipes is to use the @UsePipes() decorator.
+  When you do that, you do it instead of putting the pipe class or object inside prarams or body decorator
