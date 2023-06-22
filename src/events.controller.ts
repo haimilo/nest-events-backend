@@ -66,7 +66,7 @@ export class EventsController {
   }
 
   @Post()
-  async create(@Body(ValidationPipe) input: CreateEventDto) {
+  async create(@Body() input: CreateEventDto) {
     return await this.repository.save({
       ...input,
       when: new Date(input.when),
@@ -74,10 +74,7 @@ export class EventsController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body(ValidationPipe) input: UpdateEventDTO,
-  ) {
+  async update(@Param('id') id: number, @Body(ValidationPipe) input: UpdateEventDTO) {
     // const index = this.events.findIndex((event) => event.id === parseInt(id));
     const event = await this.repository.findOne({
       where: {

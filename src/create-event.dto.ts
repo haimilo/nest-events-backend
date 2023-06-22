@@ -1,9 +1,11 @@
 import { IsDateString, IsString, Length } from 'class-validator';
 
 export class CreateEventDto {
+  // multi validate Dto
   @IsString()
-  @Length(5, 255, { message: 'The name length is wrong' })
+  @Length(5, 255, { message: 'The name length is wrong, it\'s must be between 5 and 255 characters' })
   name: string;
+  // single validate Dto
   @Length(5, 255)
   description: string;
   @IsDateString()
