@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { EventsController } from './events.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Event } from './event.entity';
+import { Event } from './events/event.entity';
+import { EventsModule } from './events/events.module';
 
 @Module({
   // in the import module you need to import TypeOrmModule and forRoot method
@@ -19,9 +19,10 @@ import { Event } from './event.entity';
       synchronize: true,
     }),
     // TypeOrmModule.forFeature will automatically update its database schema
-    TypeOrmModule.forFeature([Event])
+    // TypeOrmModule.forFeature([Event]),
+    EventsModule,
   ],
-  controllers: [AppController, EventsController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
