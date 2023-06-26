@@ -93,3 +93,12 @@
 
   Another way to apply pipes is to use the @UsePipes() decorator.
   When you do that, you do it instead of putting the pipe class or object inside prarams or body decorator
+
+40. Static Modules and Dynamic Modules
+  Constant things in life 101:
+  1) Speed of Light
+  - The convention is to call this static method:
+    * forRoot
+    * register
+  - Modules are singletons
+    * Singleton - design pattern where only 1 instance of class is ever created
