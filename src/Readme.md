@@ -102,3 +102,6 @@
     * register
   - Modules are singletons
     * Singleton - design pattern where only 1 instance of class is ever created
+
+41. Standard and Custom Providers
+  
